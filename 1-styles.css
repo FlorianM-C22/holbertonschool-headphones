@@ -1,16 +1,16 @@
 /* Variables
 ============================= */
 @font-face {
-  font-family: "Source Sans Pro Regular";
+  font-family: "Source Sans Pro";
   src: url("fonts/SourceSansPro-Regular.otf") format("opentype");
-  font-weight: var(--font-weight-regular);
+  font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "Source Sans Pro Bold";
+  font-family: "Source Sans Pro";
   src: url("fonts/SourceSansPro-Bold.otf") format("opentype");
-  font-weight: var(--font-weight-bold);
+  font-weight: 700;
   font-style: normal;
 }
 
@@ -29,16 +29,20 @@
 }
 
 :root {
-  --font-family-regular: "Source Sans Pro Regular", sans-serif;
-  --font-family-bold: "Source Sans Pro Bold", sans-serif;
+  --font-family-base: "Source Sans Pro", sans-serif;
   --font-weight-regular: 400;
   --font-weight-bold: 700;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: var(--font-family-base);
 }
 
 body {
@@ -70,40 +74,74 @@ body {
 .nav {
   display: flex;
   text-align: end;
+  list-style: none;
+  transition: all 0.3s ease-in-out;
 }
 
 .navbar-container {
-  position: flex;
-  top: 0;
-  left: 0;
-  padding: 1rem;
   display: flex;
-}
-
-.nav-items .nav-link {
-  font-family: var(--font-family-bold);
-  font-weight: var(--font-weight-bold);
-  font-size: 14px;
-  color: white;
-}
-
-.nav .nav-items {
-  margin: 0 0 0 2rem;
+  align-items: center;
 }
 
 .nav-items {
   list-style: none;
+  margin: 0 1rem;
 }
 
-.nav-items a {
+.nav-items .nav-link {
+  font-weight: var(--font-weight-bold);
+  font-size: 14px;
   color: white;
   text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+  transition: color 0.3s ease-in-out;
 }
 
-.nav-items:hover a,
-.nav-items:active a {
+.nav-items .nav-link:hover,
+.nav-items .nav-link:active {
   color: #ff6565;
   text-decoration: none;
+}
+
+@media (max-width: 480px) {
+  .menu-icon {
+    display: block;
+    cursor: pointer;
+  }
+  .header-logo {
+    flex: 1;
+    text-align: center;
+  }
+  .nav {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    padding: 1rem 0;
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  }
+  .nav-items {
+    margin: 0.5rem 0;
+    width: 100%;
+  }
+  .nav-items .nav-link {
+    padding: 1rem;
+  }
+  .navbar-container {
+    width: 100%;
+  }
+  .menu-btn:checked ~ .navbar-container .nav {
+    display: flex;
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Menu icon
@@ -124,6 +162,7 @@ body {
   height: 4px;
   border-radius: 5px;
   position: relative;
+  transition: all 0.3s ease-in-out;
 }
 
 .navicon:before,
@@ -159,39 +198,6 @@ body {
   top: 0;
 }
 
-@media (max-width: 480px) {
-  .menu-icon {
-    display: block;
-    cursor: pointer;
-  }
-  .header-logo {
-    flex: 1;
-    text-align: center;
-  }
-  .nav {
-    flex-direction: column;
-    text-align: center;
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: -10%;
-    gap: 2rem;
-  }
-  .nav-items {
-    margin: 1rem 0;
-    width: 100%;
-  }
-  .navbar-container {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-  }
-  .menu-btn:checked ~ .navbar-container {
-    display: block;
-  }
-}
-
 /* Section heropage
 ============ */
 
@@ -219,10 +225,11 @@ body {
   color: #ffffff;
   padding: 1rem 2rem;
   border: none;
-  font-family: var(--font-family-bold);
   font-weight: var(--font-weight-bold);
   font-size: 14px;
   margin: 2rem;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .section-body .heropage-button:hover {
@@ -230,7 +237,6 @@ body {
 }
 
 .section-body .section-title {
-  font-family: var(--font-family-bold);
   font-weight: var(--font-weight-bold);
   font-size: 32px;
   text-align: center;
@@ -239,7 +245,6 @@ body {
 }
 
 .section-body .section-tagline {
-  font-family: var(--font-family-bold);
   font-weight: var(--font-weight-bold);
   font-size: 16px;
   text-align: center;
@@ -247,7 +252,6 @@ body {
 }
 
 .section-body .section-describe {
-  font-family: var(--font-family-regular);
   font-weight: var(--font-weight-regular);
   text-align: center;
   font-size: 16px;
